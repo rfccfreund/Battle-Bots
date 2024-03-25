@@ -6,13 +6,22 @@ class MGame:
         self.turns = 0
         self.nodes = nodes
         self.score = 0
-        self.moves = []
+        self.moves = {}
         self.game_map = game_map
         self.notOver = True
         self.timelimit = timelimit
 
+        for x in self.nodes:
+            self.moves[x] = 0
+
     def find_bot_move(self, node):
         return self.game_map[node]
+
+    def update_moves(self, move):
+        self.moves[move] += 1
+
+    def num_moves(self):
+        return self.moves
 
     def game_over(self):
         return self.notOver
@@ -20,6 +29,8 @@ class MGame:
     def game_reset(self):
         self.notOver = True
         self.turns = 0
+
+
 
     def next_turn(self):
         self.turns += 1
