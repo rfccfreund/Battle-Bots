@@ -30,8 +30,6 @@ class MGame:
         self.notOver = True
         self.turns = 0
 
-
-
     def next_turn(self):
         self.turns += 1
 
