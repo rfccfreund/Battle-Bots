@@ -9,20 +9,26 @@ class RL_Bot():
         self.memory = {}
         self.moves = {}
         self.runs = 0
+        self.scores = []
         self.environment = environment
 
         self.set_environment(environment)
 
+    # step function takes a set of moves and returns one to the game
     def step(self, moves):
+        # set a default move and set the best path to zero
         best_path = 0
         move = moves[0]
 
+        # iterate through the moves assigning the highest to
         for x in moves:
             if self.get_value(x) > best_path:
+                best_path = self.get_value(x)
                 move = x
 
         if random.random() < self.threshold:
             return move
+        #
         elif len(moves) == 1:
             return move
         else:
@@ -49,6 +55,18 @@ class RL_Bot():
 
     def update_rewards(self, moves):
         self.runs += 1
+        score = 0
+
+        for x in (self.memory.values()):
+            score += x
+        score = score / 5.0
+        self.scores.append(score)
+
+        if len(self.scores) >= 2:
+            if self.scores[-1] > self.scores[-2]:
+               if self.threshold < 0.97:
+                    self.threshold += .025
+
         for key in self.memory:
             if self.memory[key] > 0:
                 self.reward[key] += self.memory[key]
@@ -58,7 +76,7 @@ class RL_Bot():
     def expected_values(self):
         for key in self.policy:
             print(key, ": ", self.policy[key])
-        print("\n")
+        print("Policy: ", self.threshold)
 
     def strategy(self, game, steps, start):
 
@@ -76,7 +94,10 @@ class RL_Bot():
             strategy.append(optimal_move)
             steps -= 1
         for x in strategy:
-            print(x, " ")
+            print(x, end=" ")
 
     def run_num(self):
         return self.runs
+
+    def all_scores(self):
+        return self.scores
