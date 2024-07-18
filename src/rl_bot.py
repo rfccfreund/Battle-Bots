@@ -50,8 +50,8 @@ class RL_Bot():
         for x in self.memory:
             if self.memory[x] > 0:
                 self.memory[x] += value
-
-        self.memory[move] += value
+            else:
+                self.memory[move] += value
 
     def update_rewards(self, moves):
         self.runs += 1
@@ -64,7 +64,7 @@ class RL_Bot():
 
         if len(self.scores) >= 2:
             if self.scores[-1] > self.scores[-2]:
-               if self.threshold < 0.97:
+                if self.threshold < 0.97:
                     self.threshold += .025
 
         for key in self.memory:
