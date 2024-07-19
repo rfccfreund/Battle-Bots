@@ -12,7 +12,7 @@ class RL_Bot():
         self.scores = []
         self.environment = environment
 
-        self.set_environment(environment)
+        self.set_environment()
 
     # step function takes a set of moves and returns one to the game
     def step(self, moves):
@@ -36,7 +36,7 @@ class RL_Bot():
             y.remove(move)
             return random.choice(y)
 
-    def set_environment(self, key):
+    def set_environment(self):
         for key in self.environment:
             self.reward[key] = 0
             self.memory[key] = 0
@@ -47,11 +47,10 @@ class RL_Bot():
         return self.policy[move]
 
     def update_values(self, value, move):
-        for x in self.memory:
-            if self.memory[x] > 0:
-                self.memory[x] += value
-            else:
-                self.memory[move] += value
+        if self.memory[move] > 0:
+            self.memory[move] += value
+        else:
+            self.memory[move] += value
 
     def update_rewards(self, moves):
         self.runs += 1
@@ -59,7 +58,7 @@ class RL_Bot():
 
         for x in (self.memory.values()):
             score += x
-        score = score / 5.0
+
         self.scores.append(score)
 
         if len(self.scores) >= 2:

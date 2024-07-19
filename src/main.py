@@ -6,8 +6,8 @@ import numpy as np
 # game object takes a gameMap, a list of nodes, and a policy
 
 
-player1 = rl_bot.RL_Bot(gb.nodes, .05)
-player2 = rl_bot.RL_Bot(gb.nodes, .05)
+player1 = rl_bot.RL_Bot(gb.nodes, .6)
+player2 = rl_bot.RL_Bot(gb.nodes, .15)
 
 players = [player1, player2]
 
@@ -32,7 +32,7 @@ def play_game(game, bots):
 
 # run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while players[1].run_num() < 200:
+    while players[1].run_num() < 50:
         play_game(gb.firstGame, players)
 
     player1_score = np.array(players[0].all_scores())
