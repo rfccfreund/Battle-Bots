@@ -29,6 +29,11 @@ class MGame:
     def game_reset(self):
         self.notOver = True
         self.turns = 0
+        self.score = 0
+        self.moves = {}
+
+        for x in self.nodes:
+            self.moves[x] = 0
 
     def next_turn(self):
         self.turns += 1

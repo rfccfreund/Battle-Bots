@@ -6,34 +6,43 @@ import numpy as np
 # game object takes a gameMap, a list of nodes, and a policy
 
 
-test_bot = rl_bot.RL_Bot(gb.nodes, .33)
+player1 = rl_bot.RL_Bot(gb.nodes, .05)
+player2 = rl_bot.RL_Bot(gb.nodes, .05)
+
+players = [player1, player2]
 
 
 # play game function takes a bot and game object and runs the game
-def play_game(game, bot):
-    bot_choice = gb.A
-    while game.game_over():
-        move = bot.step(game.find_bot_move(bot_choice))
-        game.update_moves(move)
-        bot.update_values(move.score(), move)
-        bot_choice = move
+def play_game(game, bots):
 
-        game.next_turn()
+    for bot in bots:
+        bot_choice = gb.A
+        while game.game_over():
+            move = bot.step(game.find_bot_move(bot_choice))
+            game.update_moves(move)
+            bot.update_values(move.score(), move)
+            bot_choice = move
 
-    bot.update_rewards(game.num_moves())
-    bot.expected_values()
-    game.game_reset()
+            game.next_turn()
+
+        bot.update_rewards(game.num_moves())
+        bot.expected_values()
+        game.game_reset()
 
 
-# run_num returns the number of times the game has run. This alllows us to alter the number of runs
+# run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while test_bot.run_num() < 150:
-        play_game(gb.firstGame, test_bot)
+    while players[1].run_num() < 200:
+        play_game(gb.firstGame, players)
 
-    ypoints = np.array(test_bot.all_scores())
+    player1_score = np.array(players[0].all_scores())
+    player2_score = np.array(players[1].all_scores())
 
-    plt.plot(ypoints, marker=".", linestyle='None')
+    plt.plot(player1_score, marker=".", linestyle='None')
+    plt.plot(player2_score, marker=".", linestyle='None')
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
-    test_bot.strategy(gb.firstGame, 5, gb.A)
+    players[0].strategy(gb.firstGame, 10, gb.A)
+    print("\n")
+    players[1].strategy(gb.firstGame, 10, gb.A)
