@@ -18,4 +18,4 @@ nodes = [A, B, C, D, E, F, G, H, I, J]
 # game map that shows how the nodes connect.
 gameMap = {A: (B, C), B: (D, E), C: (E, F), D: (G, H), E: (G, I), F: (H, J), G: (A, C), H: (A,), I: (B, C), J: (D, A)}
 
-firstGame = mg.MGame(gameMap, nodes, 100)
+firstGame = mg.MGame(gameMap, nodes, 50)
