@@ -2,17 +2,55 @@ import random
 
 
 class RL_Bot():
-    def __init__(self, environment, threshold):
-        self.threshold = threshold
-        self.reward = {}
-        self.policy = {}
-        self.memory = {}
-        self.moves = {}
-        self.runs = 0
-        self.scores = []
+    def __init__(self, environment, explore_co):
         self.environment = environment
-
         self.set_environment()
+
+        self.explore_co = explore_co  # used to calc optimization vs exploration play
+
+        self.scores = []  # list of points for one game
+        self.game_hist = []  # long term game history
+
+        self.reward = {}  # store the value one games of any point
+        self.policy = {}  # store long term value of each point
+
+        self.memory = {}
+        self.player_moves = []
+
+    def set_environment(self):
+        for key in self.environment:
+            self.reward[key] = 0
+            self.memory[key] = 0
+            self.policy[key] = 0
+            self.moves[key] = 0
+
+    def update_explore_co(self):  # if most recent score > prior run bot explores less
+        if len(self.scores) >= 2:
+            if self.scores[-1] > self.scores[-2]:
+                if self.threshold < 0.97:
+                    self.threshold += .025
+
+    def score_move(self, score):
+        self.scores.append(score)
+
+    def add_move(self, move):
+        self.player_moves.append(move)
+
+    def add_game_score(self):
+        final_score = sum(self.scores)
+        self.game_hist.append(final_score)
+        self.scores = []
+
+    def update_policy(self):
+        for key, value in self.policy:
+            self.policy[key] = (value * len(self.game_hist) + self.reward[key]) / len(self.game_hist) + 1
+
+    def player_cleanup(self):
+        for key in self.environment:
+            self.reward[key] = 0
+
+        self.player_moves = []
+        self.scores = []
 
     # step function takes a set of moves and returns one to the game
     def step(self, moves):
@@ -26,9 +64,9 @@ class RL_Bot():
                 best_path = self.get_value(x)
                 move = x
 
-        if random.random() < self.threshold:
+        if random.random() < self.threshold:  # high threshold -> less exploration
             return move
-        #
+
         elif len(moves) == 1:
             return move
         else:
@@ -36,41 +74,18 @@ class RL_Bot():
             y.remove(move)
             return random.choice(y)
 
-    def set_environment(self):
-        for key in self.environment:
-            self.reward[key] = 0
-            self.memory[key] = 0
-            self.policy[key] = 0
-            self.moves[key] = 0
-
     def get_value(self, move):
+
         return self.policy[move]
 
-    def update_values(self, value, move):
-        if self.memory[move] > 0:
-            self.memory[move] += value
-        else:
-            self.memory[move] += value
+    def update_rewards(self):
+        for move in self.player_moves:
+            if self.reward[move] == self.memory[move]:
+                self.reward[move] = sum(self.scores)
+                self.scores.pop[0]
 
-    def update_rewards(self, moves):
-        self.runs += 1
-        score = 0
-
-        for x in (self.memory.values()):
-            score += x
-
-        self.scores.append(score)
-
-        if len(self.scores) >= 2:
-            if self.scores[-1] > self.scores[-2]:
-                if self.threshold < 0.97:
-                    self.threshold += .025
-
-        for key in self.memory:
-            if self.memory[key] > 0:
-                self.reward[key] += self.memory[key]
-                self.policy[key] = (self.reward[key] / moves[key])
-                self.memory[key] = 0
+        for key, value in self.reward:
+            self.memory[key] = value
 
     def expected_values(self):
         for key in self.policy:
@@ -95,8 +110,5 @@ class RL_Bot():
         for x in strategy:
             print(x, end=" ")
 
-    def run_num(self):
-        return self.runs
-
     def all_scores(self):
-        return self.scores
+        return self.game_hist
