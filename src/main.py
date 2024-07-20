@@ -20,19 +20,24 @@ def play_game(game, bots):
         while game.game_over():
             move = bot.step(game.find_bot_move(bot_choice))
             game.update_moves(move)
-            bot.update_values(move.score(), move)
+            bot.score_move(move.score())
+            bot.add_move(move)
+
             bot_choice = move
 
             game.next_turn()
 
-        bot.update_rewards(game.num_moves())
+        bot.add_game_score()
+        bot.update_rewards()
+        bot.update_policy()
         bot.expected_values()
+        bot.player_cleanup()
         game.game_reset()
 
 
 # run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while players[1].run_num() < 50:
+    while len(players[1].all_scores()) < 50:
         play_game(gb.firstGame, players)
 
     player1_score = np.array(players[0].all_scores())
