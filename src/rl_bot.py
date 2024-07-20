@@ -24,12 +24,16 @@ class RL_Bot():
             self.memory[key] = 0
             self.policy[key] = 0
 
-
     def update_explore_co(self):  # if most recent score > prior run bot explores less
         if len(self.game_hist) >= 2:
-            if self.game_hist[-1] > self.game_hist[-2]:
+            if self.game_hist[-1] > max(self.game_hist):
                 if self.explore_co < 0.97:
-                    self.explore_co += .025
+                    self.explore_co += .04
+
+        if len(self.game_hist) >= 2:
+            if self.game_hist[-1] < self.game_hist[-2]:
+                if self.explore_co < 0.97:
+                    self.explore_co -= .015
 
     def score_move(self, score):
         self.scores.append(score)
@@ -40,7 +44,6 @@ class RL_Bot():
     def add_game_score(self):
         final_score = sum(self.scores)
         self.game_hist.append(final_score)
-        self.scores = []
 
     def update_policy(self):
         for key, value in self.policy.items():
@@ -106,7 +109,8 @@ class RL_Bot():
                     optimal_move = x.location()
                     start = x
 
-            strategy.append(optimal_move)
+            if optimal_move:
+                strategy.append(optimal_move)
             steps -= 1
         for x in strategy:
             print(x, end=" ")

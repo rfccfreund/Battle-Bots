@@ -1,3 +1,5 @@
+import random
+
 import gameboard as gb
 import rl_bot
 import matplotlib.pyplot as plt
@@ -5,9 +7,10 @@ import numpy as np
 
 # game object takes a gameMap, a list of nodes, and a policy
 
+random.seed(42)
 
-player1 = rl_bot.RL_Bot(gb.nodes, .6)
-player2 = rl_bot.RL_Bot(gb.nodes, .15)
+player1 = rl_bot.RL_Bot(gb.nodes, .3)
+player2 = rl_bot.RL_Bot(gb.nodes, .6)
 
 players = [player1, player2]
 
@@ -30,6 +33,7 @@ def play_game(game, bots):
         bot.add_game_score()
         bot.update_rewards()
         bot.update_policy()
+        bot.update_explore_co()
         bot.expected_values()
         bot.player_cleanup()
         game.game_reset()
@@ -37,14 +41,14 @@ def play_game(game, bots):
 
 # run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while len(players[1].all_scores()) < 50:
+    while len(players[1].all_scores()) < 100:
         play_game(gb.firstGame, players)
 
     player1_score = np.array(players[0].all_scores())
     player2_score = np.array(players[1].all_scores())
 
     plt.plot(player1_score, marker=".", linestyle='None')
-    plt.plot(player2_score, marker=".", linestyle='None')
+    plt.plot(player2_score, marker="*", linestyle='None')
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
