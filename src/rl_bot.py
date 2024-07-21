@@ -26,14 +26,12 @@ class RL_Bot():
 
     def update_explore_co(self):  # if most recent score > prior run bot explores less
         if len(self.game_hist) >= 2:
-            if self.game_hist[-1] > max(self.game_hist):
-                if self.explore_co < 0.97:
+            temp_list = set(self.game_hist)
+            temp_list.remove(max(temp_list))
+            if self.game_hist[-1] > max(temp_list):
+                if self.explore_co < 0.95:
                     self.explore_co += .04
 
-        if len(self.game_hist) >= 2:
-            if self.game_hist[-1] < self.game_hist[-2]:
-                if self.explore_co < 0.97:
-                    self.explore_co -= .015
 
     def score_move(self, score):
         self.scores.append(score)

@@ -19,7 +19,7 @@ players = [player1, player2]
 def play_game(game, bots):
 
     for bot in bots:
-        bot_choice = gb.A
+        bot_choice = gb.Start
         while game.game_over():
             move = bot.step(game.find_bot_move(bot_choice))
             game.update_moves(move)
@@ -52,6 +52,6 @@ if __name__ == '__main__':
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
-    players[0].strategy(gb.firstGame, 10, gb.A)
+    players[0].strategy(gb.firstGame, 3, gb.Start)
     print("\n")
-    players[1].strategy(gb.firstGame, 10, gb.A)
+    players[1].strategy(gb.firstGame, 3, gb.Start)
