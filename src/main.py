@@ -9,10 +9,11 @@ import numpy as np
 
 random.seed(42)
 
-player1 = rl_bot.RL_Bot(gb.nodes, .3)
-player2 = rl_bot.RL_Bot(gb.nodes, .6)
+player1 = rl_bot.RL_Bot(gb.nodes, .25)
+player2 = rl_bot.RL_Bot(gb.nodes, .5)
+player3 = rl_bot.RL_Bot(gb.nodes, .75)
 
-players = [player1, player2]
+players = [player1, player2, player3]
 
 
 # play game function takes a bot and game object and runs the game
@@ -41,17 +42,21 @@ def play_game(game, bots):
 
 # run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while len(players[1].all_scores()) < 100:
+    while len(players[2].all_scores()) < 50:
         play_game(gb.firstGame, players)
 
     player1_score = np.array(players[0].all_scores())
     player2_score = np.array(players[1].all_scores())
+    player3_score = np.array(players[2].all_scores())
 
     plt.plot(player1_score, marker=".", linestyle='None')
-    plt.plot(player2_score, marker="*", linestyle='None')
+    plt.plot(player2_score, marker="+", linestyle='None')
+    plt.plot(player3_score, marker="D", linestyle='None')
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
     players[0].strategy(gb.firstGame, 3, gb.Start)
     print("\n")
     players[1].strategy(gb.firstGame, 3, gb.Start)
+    print("\n")
+    players[2].strategy(gb.firstGame, 3, gb.Start)
