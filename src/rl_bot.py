@@ -25,7 +25,7 @@ class RL_Bot():
             self.policy[key] = 0
 
     def update_explore_co(self):  # if most recent score > prior run bot explores less
-        if len(self.game_hist) >= 2:
+        if len(self.game_hist) > 2:
             temp_list = set(self.game_hist)
             temp_list.remove(max(temp_list))
             if self.game_hist[-1] > max(temp_list):
@@ -59,6 +59,7 @@ class RL_Bot():
         # set a default move and set the best path to zero
         best_path = 0
         move = moves[0]
+
 
         # iterate through the moves assigning the highest to
         for x in moves:
