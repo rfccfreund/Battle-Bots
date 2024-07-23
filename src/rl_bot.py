@@ -12,6 +12,7 @@ class RL_Bot():
 
         self.reward = {}  # store the value one games of any point
         self.policy = {}  # store long term value of each point
+        self.strategy_chosen = {}
 
         self.memory = {}
         self.player_moves = []
@@ -23,15 +24,15 @@ class RL_Bot():
             self.reward[key] = 0
             self.memory[key] = 0
             self.policy[key] = 0
+            self.strategy_chosen[key] = 0
 
     def update_explore_co(self):  # if most recent score > prior run bot explores less
-        if len(self.game_hist) >= 2:
+        if len(self.game_hist) > 3:
             temp_list = set(self.game_hist)
             temp_list.remove(max(temp_list))
             if self.game_hist[-1] > max(temp_list):
                 if self.explore_co < 0.95:
                     self.explore_co += .04
-
 
     def score_move(self, score):
         self.scores.append(score)
@@ -45,12 +46,9 @@ class RL_Bot():
 
     def update_policy(self):
         for key, value in self.policy.items():
-            self.policy[key] = (value * len(self.game_hist) + self.reward[key]) / len(self.game_hist)
+            self.policy[key] = self.reward[key] / (self.strategy_chosen[key] + .01)
 
     def player_cleanup(self):
-        for key in self.environment:
-            self.reward[key] = 0
-
         self.player_moves = []
         self.scores = []
 
@@ -82,12 +80,12 @@ class RL_Bot():
     def update_rewards(self):
         for move in self.player_moves:
             if self.reward[move] == self.memory[move]:
-                self.reward[move] = sum(self.scores)
+                self.reward[move] += sum(self.scores)
+                self.strategy_chosen[move] += 1
                 if len(self.scores) > 0:
                     self.scores.pop(0)
 
-        for key in self.environment:
-            self.memory[key] = self.reward[key]
+            self.memory[move] = self.reward[move]
 
     def expected_values(self):
         for key in self.policy:
@@ -97,21 +95,30 @@ class RL_Bot():
     def strategy(self, game, steps, start):
 
         strategy = []
+        final_score = 0
 
         while steps > 0:
+
             current_best = 0
             moves = game.find_bot_move(start)
             for x in moves:
                 if self.get_value(x) > current_best:
                     current_best = self.get_value(x)
+                    actual_value = x.score()
                     optimal_move = x.location()
                     start = x
 
             if optimal_move:
                 strategy.append(optimal_move)
+                final_score += actual_value
+
             steps -= 1
         for x in strategy:
             print(x, end=" ")
+
+        print(final_score)
+
+
 
     def all_scores(self):
         return self.game_hist
