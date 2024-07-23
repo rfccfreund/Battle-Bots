@@ -113,12 +113,11 @@ class RL_Bot():
                 final_score += actual_value
 
             steps -= 1
+        print("The player makes the following moves: ", end="")
         for x in strategy:
             print(x, end=" ")
 
-        print(final_score)
-
-
+        print("for a total of", final_score, "points")
 
     def all_scores(self):
         return self.game_hist
