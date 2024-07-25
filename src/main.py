@@ -9,6 +9,7 @@ import numpy as np
 
 random.seed(42)
 
+# create player objects with varying exploration coeeficents
 player1 = rl_bot.RL_Bot(gb.nodes, .25)
 player2 = rl_bot.RL_Bot(gb.nodes, .5)
 player3 = rl_bot.RL_Bot(gb.nodes, .75)
@@ -20,14 +21,14 @@ players = [player1, player2, player3]
 def play_game(game, bots):
 
     for bot in bots:
-        bot_choice = gb.Start
+        bot_loc = gb.Start
         while game.game_over():
-            move = bot.step(game.find_bot_move(bot_choice))
+            move = bot.step(game.find_bot_move(bot_loc))
             game.update_moves(move)
             bot.score_move(move.score())
             bot.add_move(move)
 
-            bot_choice = move
+            bot_loc = move
 
             game.next_turn()
 
