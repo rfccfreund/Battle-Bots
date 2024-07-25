@@ -9,6 +9,7 @@ import numpy as np
 
 random.seed(42)
 
+# create player objects with varying exploration coeeficents
 player1 = rl_bot.RL_Bot(gb.nodes, .25)
 player2 = rl_bot.RL_Bot(gb.nodes, .5)
 player3 = rl_bot.RL_Bot(gb.nodes, .75)
