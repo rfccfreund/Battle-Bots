@@ -10,9 +10,9 @@ import numpy as np
 random.seed(42)
 
 # create player objects with varying exploration coeeficents
-player1 = rl_bot.RL_Bot(gb.nodes, .25)
-player2 = rl_bot.RL_Bot(gb.nodes, .5)
-player3 = rl_bot.RL_Bot(gb.nodes, .75)
+player1 = rl_bot.RL_Bot(gb.nodes_m, .25)
+player2 = rl_bot.RL_Bot(gb.nodes_m, .5)
+player3 = rl_bot.RL_Bot(gb.nodes_m, .75)
 
 players = [player1, player2, player3]
 
@@ -43,8 +43,8 @@ def play_game(game, bots):
 
 # run_num returns the number of times the game has run. This allows us to alter the number of runs
 if __name__ == '__main__':
-    while len(players[2].all_scores()) < 50:
-        play_game(gb.firstGame, players)
+    while len(players[2].all_scores()) < 150:
+        play_game(gb.secondGame, players)
 
     player1_score = np.array(players[0].all_scores())
     player2_score = np.array(players[1].all_scores())
@@ -56,8 +56,8 @@ if __name__ == '__main__':
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
-    players[0].strategy(gb.firstGame, 3, gb.Start)
+    players[0].strategy(gb.secondGame, 4, gb.Start)
     print("\n")
-    players[1].strategy(gb.firstGame, 3, gb.Start)
+    players[1].strategy(gb.secondGame, 4, gb.Start)
     print("\n")
-    players[2].strategy(gb.firstGame, 3, gb.Start)
+    players[2].strategy(gb.secondGame, 4, gb.Start)
