@@ -12,13 +12,21 @@ F = mg.Node('F', (5, 5))
 G = mg.Node('G', (4, 4))
 
 # Nodes for medium game
-A_M = mg.Node(name='A', points=(1, 1))
-B_M = mg.Node('B', (2, 3))
-C_M = mg.Node('C', (3, 5))
-D_M = mg.Node('D', (4, 7))
-E_M = mg.Node('E', (9, 11))
-F_M = mg.Node('F', (5, 6))
-G_M = mg.Node('G', (4, 5))
+A2 = mg.Node(name='A2', points=(1, 1))
+B2 = mg.Node('B2', (2, 3))
+C2 = mg.Node('C2', (3, 5))
+D2 = mg.Node('D2', (4, 7))
+E2 = mg.Node('E2', (9, 11))
+F2 = mg.Node('F2', (5, 6))
+G2 = mg.Node('G2', (4, 5))
+H2 = mg.Node('H2', (7, 8))
+I2 = mg.Node('I2', (8, 9))
+J2 = mg.Node('J2', (12, 13))
+K2 = mg.Node('K2', (8, 9))
+L2 = mg.Node('L2', (10, 11))
+M2 = mg.Node('M2', (13, 14))
+N2 = mg.Node('N2', (11, 12))
+O2 = mg.Node('O2', (10, 11))
 
 
 
@@ -26,14 +34,18 @@ G_M = mg.Node('G', (4, 5))
 # list of nodes for each game
 nodes = [Start, A, B, C, D, E, F, G]
 
-nodes_m = [Start, A, B, C, D, E, F, G]
+nodes_m = [Start, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2]
 
 nodes_h = [Start, A, B, C, D, E, F, G]
 
 # game map that shows how the nodes connect for each game
 game_map_easy = {Start: (A, A), A: (B, C), B: (D, E), C: (F, G)}
 
-game_map_medium = {Start: (A_M, A_M), A: (B_M, C_M), B: (D, E), C: (F, G)}
+game_map_medium = {Start: (A2, A2), A2: (B2, C2),
+                   B2: (D2, E2), C2: (F2, G2),
+                   D2: (H2, I2), E2: (J2, K2), F2: (L2, M2), G2: (N2, O2)}
 
 # Creation of each game object to be used in main script
 firstGame = mg.MGame(game_map_easy, nodes, 3)
+
+secondGame = mg.MGame(game_map_medium, nodes_m, 4)
