@@ -7,7 +7,7 @@ import players
 random.seed(42)
 
 """
-Players definite characteristic is there threshold to explore vs optimize with know information, which is 
+Players defining characteristic is there threshold to explore vs optimize with know information, which is 
 captured in a players exploration coefficient. For example a coefficient of .25 means that 25% of the time 
 the player will optimize, while 75% of the time they chose a random alternative to the optimal path. 
 
