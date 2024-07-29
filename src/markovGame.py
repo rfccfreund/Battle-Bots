@@ -1,6 +1,6 @@
 import random
 
-
+# simple game made of nodes in a predetermined structure
 class MGame:
     def __init__(self, game_map, nodes, timelimit):
         self.turns = 0

@@ -3,10 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# play game function takes a bot and game object and runs the game
+# play game function takes a list of bots and game object and runs the game
 def play_game(game, bots):
     for bot in bots:
-        bot_loc = gb.Start
+        bot_loc = gb.Start  # Start is a special node which can only be moved from
         while game.game_over():
             move = bot.step(game.find_bot_move(bot_loc))
             game.update_moves(move)
@@ -17,6 +17,11 @@ def play_game(game, bots):
 
             game.next_turn()
 
+        """
+        post-game the bot uses the new information gained to update its knowledge of the game structure.
+        With the updated game structure, the bot updates it optimal play strategy and adjusts its 
+        exploration coefficient to explore less as it achieves higher and higher scores
+        """
         bot.add_game_score()
         bot.update_rewards()
         bot.update_policy()
@@ -26,6 +31,7 @@ def play_game(game, bots):
         game.game_reset()
 
 
+# Post game run visualization to see how each bot is learning
 def graph_game_scores(players):
     scores = []
     for player in players:
@@ -42,8 +48,8 @@ def graph_game_scores(players):
     plt.show()
 
     # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
-   #agents[0].strategy(gb.secondGame, 4, gb.Start)
-   # print("\n")
-   # agents[1].strategy(gb.secondGame, 4, gb.Start)
-   # print("\n")
-   # agents[2].strategy(gb.secondGame, 4, gb.Start)
+# agents[0].strategy(gb.secondGame, 4, gb.Start)
+# print("\n")
+# agents[1].strategy(gb.secondGame, 4, gb.Start)
+# print("\n")
+# agents[2].strategy(gb.secondGame, 4, gb.Start)

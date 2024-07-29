@@ -1,7 +1,6 @@
 import markovGame as mg
 
 # define the nodes object which make up the game
-
 Start = mg.Node(name='Start', points=0)
 A = mg.Node(name='A', points=(1, 1))
 B = mg.Node('B', (2, 2))
@@ -45,7 +44,8 @@ game_map_medium = {Start: (A2, A2), A2: (B2, C2),
                    B2: (D2, E2), C2: (F2, G2),
                    D2: (H2, I2), E2: (J2, K2), F2: (L2, M2), G2: (N2, O2)}
 
-# Creation of each game object to be used in main script
+
+# Creation game objects to be used in main. Each game requires a map, a list of nodes, and a number of turns
 firstGame = mg.MGame(game_map_easy, nodes, 3)
 
 secondGame = mg.MGame(game_map_medium, nodes_m, 4)

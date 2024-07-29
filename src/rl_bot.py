@@ -10,7 +10,7 @@ class RL_Bot():
         self.scores = []  # list of points for one game
         self.game_hist = []  # long term game history
 
-        self.reward = {}  # store the value one games of any point
+        self.reward = {}  # store the cumulative reward of each game choice for one game
         self.policy = {}  # store long term value of each point
         self.strategy_chosen = {}
 
@@ -26,7 +26,7 @@ class RL_Bot():
             self.policy[key] = 0
             self.strategy_chosen[key] = 0
 
-    def update_explore_co(self):  # if most recent score > prior run bot explores less
+    def update_explore_co(self):  # if most recent score > previous high explore less in future games
         if len(self.game_hist) > 3:
             temp_list = set(self.game_hist)
             temp_list.remove(max(temp_list))
