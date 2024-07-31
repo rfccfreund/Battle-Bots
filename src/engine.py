@@ -47,9 +47,10 @@ def graph_game_scores(players):
     ax.set_ylabel('Score')
     plt.show()
 
-    # after the strategy is defined by the loop we set the policy to one. Returns a list of best moves
-# agents[0].strategy(gb.secondGame, 4, gb.Start)
-# print("\n")
-# agents[1].strategy(gb.secondGame, 4, gb.Start)
-# print("\n")
-# agents[2].strategy(gb.secondGame, 4, gb.Start)
+
+def optimal_play(players, game, moves, start):
+    for player in players:
+        player.strategy(game, moves, start)
+        print("\n")
+
+

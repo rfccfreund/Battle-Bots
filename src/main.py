@@ -23,4 +23,4 @@ if __name__ == '__main__':
         engine.play_game(gb.secondGame, agents)
 
     engine.graph_game_scores(agents)
-
+    engine.optimal_play(agents, gb.secondGame, 4, gb.Start)
