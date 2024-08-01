@@ -28,6 +28,37 @@ N2 = mg.Node('N2', (11, 12))
 O2 = mg.Node('O2', (10, 11))
 
 
+# Nodes for hard game
+A3 = mg.Node(name='A2', points=(1, 1))
+B3 = mg.Node('B2', (2, 3))
+C3 = mg.Node('C2', (3, 5))
+D3 = mg.Node('D2', (4, 7))
+E3 = mg.Node('E2', (9, 11))
+F3 = mg.Node('F2', (5, 6))
+G3 = mg.Node('G2', (4, 5))
+H3 = mg.Node('H2', (7, 8))
+I3 = mg.Node('I2', (8, 9))
+J3 = mg.Node('J2', (12, 13))
+K3 = mg.Node('K2', (8, 9))
+L3 = mg.Node('L2', (10, 11))
+M3 = mg.Node('M2', (13, 14))
+N3 = mg.Node('N2', (11, 12))
+O3 = mg.Node('O2', (10, 11))
+P3 = mg.Node('O2', (10, 11))
+Q3 = mg.Node('O2', (10, 11))
+R3 = mg.Node('O2', (10, 11))
+S3 = mg.Node('O2', (10, 11))
+T3 = mg.Node('O2', (10, 11))
+U3 = mg.Node('O2', (10, 11))
+V3 = mg.Node('O2', (10, 11))
+W3 = mg.Node('O2', (10, 11))
+X3 = mg.Node('O2', (10, 11))
+Y3 = mg.Node('O2', (10, 11))
+Z3 = mg.Node('O2', (10, 11))
+
+
+
+
 
 
 # list of nodes for each game
@@ -35,7 +66,8 @@ nodes = [Start, A, B, C, D, E, F, G]
 
 nodes_m = [Start, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2]
 
-nodes_h = [Start, A, B, C, D, E, F, G]
+nodes_h = [Start, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2
+           P3, Q3, R3, S3, T3, U3, V3]
 
 # game map that shows how the nodes connect for each game
 game_map_easy = {Start: (A, A), A: (B, C), B: (D, E), C: (F, G)}
