@@ -27,7 +27,6 @@ M2 = mg.Node('M2', (13, 14))
 N2 = mg.Node('N2', (11, 12))
 O2 = mg.Node('O2', (10, 11))
 
-
 # Nodes for hard game
 A3 = mg.Node(name='A3', points=(1, 1))
 B3 = mg.Node('B3', (2, 3))
@@ -43,31 +42,31 @@ K3 = mg.Node('K3', (8, 9))
 L3 = mg.Node('L3', (10, 11))
 M3 = mg.Node('M3', (13, 14))
 N3 = mg.Node('N3', (11, 12))
-O3 = mg.Node('O3', (10, 11))
+O3 = mg.Node('O3', (11, 11))
 P3 = mg.Node('P3', (10, 11))
-Q3 = mg.Node('Q3', (10, 11))
+Q3 = mg.Node('Q3', (14, 15))
 R3 = mg.Node('R3', (10, 11))
 S3 = mg.Node('S3', (10, 11))
-T3 = mg.Node('T3', (10, 11))
-U3 = mg.Node('U3', (10, 11))
-V3 = mg.Node('V3', (10, 11))
-W3 = mg.Node('W3', (10, 11))
-X3 = mg.Node('X3', (10, 11))
-Y3 = mg.Node('Y3', (10, 11))
-Z3 = mg.Node('Z3', (10, 11))
-
-
-
-
-
+T3 = mg.Node('T3', (17, 18))
+U3 = mg.Node('U3', (13, 15))
+V3 = mg.Node('V3', (12, 13))
+W3 = mg.Node('W3', (15, 16))
+X3 = mg.Node('X3', (12, 14))
+Y3 = mg.Node('Y3', (12, 13))
+Z3 = mg.Node('Z3', (13, 14))
+Alpha3 = mg.Node('Alpha3', (10, 11))
+Beta3 = mg.Node('Beta3', (11, 12))
+Gamma3 = mg.Node('Gamma3', (12, 13))
+Delta3 = mg.Node('Delta3', (10, 11))
+Epsilon3 = mg.Node('Epsilon3', (14, 15))
 
 # list of nodes for each game
 nodes = [Start, A, B, C, D, E, F, G]
 
 nodes_m = [Start, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2]
 
-nodes_h = [Start, A3, B3, C3, D3, E3, F3, G3, H3, I3, J3, K3, L3, M3, N3, O3
-           P3, Q3, R3, S3, T3, U3, V3, W3, X3, Y3, Z3]
+nodes_h = [Start, A3, B3, C3, D3, E3, F3, G3, H3, I3, J3, K3, L3, M3, N3, O3,
+           P3, Q3, R3, S3, T3, U3, V3, W3, X3, Y3, Z3, Alpha3, Beta3, Gamma3, Delta3, Epsilon3]
 
 # game map that shows how the nodes connect for each game
 game_map_easy = {Start: (A, A), A: (B, C), B: (D, E), C: (F, G)}
@@ -77,10 +76,10 @@ game_map_medium = {Start: (A2, A2), A2: (B2, C2),
                    D2: (H2, I2), E2: (J2, K2), F2: (L2, M2), G2: (N2, O2)}
 
 game_map_hard = {Start: (A3, A3), A3: (B3, C3),
-                   B3: (D3, E3), C3: (F3, G3),
-                   D3: (H3, I3), E3: (J3, K3), F3: (L3, M3), G3: (N3, O3),
-                   H3: (P3, Q3), I3: (R3, S3), J3: (T3, U3), K3: (), L3: (), M3: (), N3:(), O3: ()  }
-
+                 B3: (D3, E3), C3: (F3, G3),
+                 D3: (H3, I3), E3: (J3, K3), F3: (L3, M3), G3: (N3, O3),
+                 H3: (P3, Q3), I3: (R3, S3), J3: (T3, U3), K3: (V3, W3), L3: (X3, Y3), M3: (Z3, Alpha3),
+                 N3: (Beta3, Gamma3), O3: (Delta3, Epsilon3)}
 
 # Creation game objects to be used in main. Each game requires a map, a list of nodes, and a number of turns
 firstGame = mg.MGame(game_map_easy, nodes, 3)
