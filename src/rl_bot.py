@@ -6,6 +6,7 @@ class RL_Bot():
         self.environment = environment
 
         self.explore_co = explore_co  # used to calc optimization vs exploration play
+        self.initial_explore = explore_co
 
         self.scores = []  # list of points for one game
         self.game_hist = []  # long term game history
@@ -33,6 +34,9 @@ class RL_Bot():
             if self.game_hist[-1] > max(temp_list):
                 if self.explore_co < 0.95:
                     self.explore_co += .04
+
+    def initial_explore_co(self):
+        self.initial_explore
 
     def score_move(self, score):
         self.scores.append(score)

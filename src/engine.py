@@ -26,7 +26,7 @@ def play_game(game, bots):
         bot.update_rewards()
         bot.update_policy()
         bot.update_explore_co()
-        bot.expected_values()
+        # bot.expected_values() prints expected value of each node - useful for debugging
         bot.player_cleanup()
         game.game_reset()
 
@@ -34,17 +34,20 @@ def play_game(game, bots):
 # Post game run visualization to see how each bot is learning
 def graph_game_scores(players):
     scores = []
+    labels = ['.25', '.5', '.75']
+
     for player in players:
         scores.append(np.array(player.all_scores()))
 
     x = np.linspace(1, len(scores[0]), len(scores[0]))
     fig, ax = plt.subplots()
 
-    for score in scores:
-        ax.plot(x, score)
+    for score in range(len(scores)):
+        ax.scatter(x, scores[score], label=labels[score])
 
     ax.set_xlabel('Number of Games')
     ax.set_ylabel('Score')
+    ax.legend()
     plt.show()
 
 
@@ -52,5 +55,3 @@ def optimal_play(players, game, moves, start):
     for player in players:
         player.strategy(game, moves, start)
         print("\n")
-
-

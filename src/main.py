@@ -4,7 +4,7 @@ import engine
 import players
 
 # set rng seed to reproduce results to test code changes
-random.seed(42)
+random.seed(0)
 
 """
 Players defining characteristic is there threshold to explore vs optimize with know information, which is 
