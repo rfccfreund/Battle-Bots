@@ -36,7 +36,7 @@ class RL_Bot():
                     self.explore_co += .04
 
     def initial_explore_co(self):
-        self.initial_explore
+        return self.initial_explore
 
     def score_move(self, score):
         self.scores.append(score)
@@ -117,7 +117,7 @@ class RL_Bot():
                 final_score += actual_value
 
             steps -= 1
-        print("The player makes the following moves: ", end="")
+        print("The player with an exploration coefficient of", self.initial_explore,"makes the following moves: ", end="")
         for x in strategy:
             print(x, end=" ")
 

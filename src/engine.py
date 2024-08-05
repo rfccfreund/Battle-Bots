@@ -28,16 +28,18 @@ def play_game(game, bots):
         bot.update_explore_co()
         # bot.expected_values() prints expected value of each node - useful for debugging
         bot.player_cleanup()
+        game.record_game()
         game.game_reset()
 
 
 # Post game run visualization to see how each bot is learning
 def graph_game_scores(players):
     scores = []
-    labels = ['.25', '.5', '.75']
+    labels = []
 
     for player in players:
         scores.append(np.array(player.all_scores()))
+        labels.append(str(player.initial_explore_co()))
 
     x = np.linspace(1, len(scores[0]), len(scores[0]))
     fig, ax = plt.subplots()

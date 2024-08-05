@@ -17,9 +17,8 @@ The program makes a bot for each value stored in exploration_co
 exploration_co = [.25, .5, .75]
 agents = players.make_players(gb.nodes_h, exploration_co, 3)
 
-
 if __name__ == '__main__':
-    while len(agents[2].all_scores()) < 150: # alter number to change number of times the game is played
+    while gb.thirdGame.game_count() < 1000:  # alter number to change number of times the game is played
         engine.play_game(gb.thirdGame, agents)
 
     engine.graph_game_scores(agents)

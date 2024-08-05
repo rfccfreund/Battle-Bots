@@ -1,5 +1,6 @@
 import random
 
+
 # simple game made of nodes in a predetermined structure
 class MGame:
     def __init__(self, game_map, nodes, timelimit):
@@ -9,6 +10,7 @@ class MGame:
         self.moves = {}
         self.game_map = game_map
         self.notOver = True
+        self.total_games = 0
         self.timelimit = timelimit
 
         for x in self.nodes:
@@ -43,6 +45,12 @@ class MGame:
 
     def what_turn(self):
         return self.turns
+
+    def record_game(self):
+        self.total_games += 1
+
+    def game_count(self):
+        return self.total_games
 
     def game_summary(self):
         print("Strategy: ", self.moves, "Final Score: ", self.score)
