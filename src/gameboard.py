@@ -87,3 +87,12 @@ firstGame = mg.MGame(game_map_easy, nodes, 3)
 secondGame = mg.MGame(game_map_medium, nodes_m, 4)
 
 thirdGame = mg.MGame(game_map_hard, nodes_h, 5)
+
+
+def choose_game(game):
+    if game == 1:
+        return firstGame
+    elif game == 2:
+        return secondGame
+    else:
+        return thirdGame
