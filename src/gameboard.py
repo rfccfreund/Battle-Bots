@@ -1,6 +1,11 @@
 import markovGame as mg
 
+
 # define the nodes object which make up the game
+def start_node():
+    return Start
+
+
 Start = mg.Node(name='Start', points=0)
 A = mg.Node(name='A', points=(1, 1))
 B = mg.Node('B', (2, 2))

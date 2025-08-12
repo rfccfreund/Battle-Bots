@@ -16,11 +16,11 @@ The program makes a bot for each value stored in exploration_co
 
 exploration_co = [.25, .5, .75]
 agents = players.make_players(gb.nodes_h, exploration_co, 3)
-game = gb.choose_game(1)
+game = gb.choose_game(3)
 
 if __name__ == '__main__':
     while game.game_count() < 1000:  # alter number to change number of times the game is played
         engine.play_game(game, agents)
 
     engine.graph_game_scores(agents)
-    engine.optimal_play(agents, game, 5, gb.Start)
+    engine.optimal_play(agents, game, 5, gb.start_node())

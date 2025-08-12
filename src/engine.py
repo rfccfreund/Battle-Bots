@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # play game function takes a list of bots and game object and runs the game
 def play_game(game, bots):
     for bot in bots:
-        bot_loc = gb.Start  # Start is a special node which can only be moved from
+        bot_loc = gb.start_node()  # Start is a special node which can only be moved from
         while game.game_over():
             move = bot.step(game.find_bot_move(bot_loc))
             game.update_moves(move)
