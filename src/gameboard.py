@@ -1,12 +1,14 @@
-import markovGame as mg
+import markov_game as mg
+import config
 
 
-# define the nodes object which make up the game
 def start_node():
-    return Start
+    """Return the starting node of the game."""
+    return START_NODE
 
 
-Start = mg.Node(name='Start', points=0)
+# Define the nodes object which make up the game
+START_NODE = mg.Node(name='Start', points=0)
 A = mg.Node(name='A', points=(1, 1))
 B = mg.Node('B', (2, 2))
 C = mg.Node('C', (3, 3))
@@ -65,39 +67,44 @@ Gamma3 = mg.Node('Gamma3', (12, 13))
 Delta3 = mg.Node('Delta3', (10, 11))
 Epsilon3 = mg.Node('Epsilon3', (14, 15))
 
-# list of nodes for each game
-nodes = [Start, A, B, C, D, E, F, G]
+# List of nodes for each game
+nodes_easy = [START_NODE, A, B, C, D, E, F, G]
+nodes_medium = [START_NODE, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2]
+nodes_hard = [START_NODE, A3, B3, C3, D3, E3, F3, G3, H3, I3, J3, K3, L3, M3, N3, O3,
+              P3, Q3, R3, S3, T3, U3, V3, W3, X3, Y3, Z3, Alpha3, Beta3, Gamma3, Delta3, Epsilon3]
 
-nodes_m = [Start, A2, B2, C2, D2, E2, F2, G2, H2, I2, J2, K2, L2, M2, N2, O2]
+# Game map that shows how the nodes connect for each game
+game_map_easy = {START_NODE: (A, A), A: (B, C), B: (D, E), C: (F, G)}
 
-nodes_h = [Start, A3, B3, C3, D3, E3, F3, G3, H3, I3, J3, K3, L3, M3, N3, O3,
-           P3, Q3, R3, S3, T3, U3, V3, W3, X3, Y3, Z3, Alpha3, Beta3, Gamma3, Delta3, Epsilon3]
-
-# game map that shows how the nodes connect for each game
-game_map_easy = {Start: (A, A), A: (B, C), B: (D, E), C: (F, G)}
-
-game_map_medium = {Start: (A2, A2), A2: (B2, C2),
+game_map_medium = {START_NODE: (A2, A2), A2: (B2, C2),
                    B2: (D2, E2), C2: (F2, G2),
                    D2: (H2, I2), E2: (J2, K2), F2: (L2, M2), G2: (N2, O2)}
 
-game_map_hard = {Start: (A3, A3), A3: (B3, C3),
+game_map_hard = {START_NODE: (A3, A3), A3: (B3, C3),
                  B3: (D3, E3), C3: (F3, G3),
                  D3: (H3, I3), E3: (J3, K3), F3: (L3, M3), G3: (N3, O3),
                  H3: (P3, Q3), I3: (R3, S3), J3: (T3, U3), K3: (V3, W3), L3: (X3, Y3), M3: (Z3, Alpha3),
                  N3: (Beta3, Gamma3), O3: (Delta3, Epsilon3)}
 
 # Creation game objects to be used in main. Each game requires a map, a list of nodes, and a number of turns
-firstGame = mg.MGame(game_map_easy, nodes, 3)
-
-secondGame = mg.MGame(game_map_medium, nodes_m, 4)
-
-thirdGame = mg.MGame(game_map_hard, nodes_h, 5)
+easy_game = mg.MarkovGame(game_map_easy, nodes_easy, config.EASY_GAME_TURNS)
+medium_game = mg.MarkovGame(game_map_medium, nodes_medium, config.MEDIUM_GAME_TURNS)
+hard_game = mg.MarkovGame(game_map_hard, nodes_hard, config.HARD_GAME_TURNS)
 
 
 def choose_game(game):
+    """
+    Choose which game to play based on difficulty level.
+    
+    Args:
+        game (int): Game difficulty (1=easy, 2=medium, 3=hard)
+        
+    Returns:
+        MarkovGame: The selected game object
+    """
     if game == 1:
-        return firstGame
+        return easy_game
     elif game == 2:
-        return secondGame
+        return medium_game
     else:
-        return thirdGame
+        return hard_game
